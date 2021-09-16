@@ -23,7 +23,7 @@ class _RegisterScreen extends State<RegisterScreen> {
     return registerUI();
   }
 
-   registerUI() {
+  Widget registerUI() {
      return Scaffold(
        body: Stack(
          alignment: Alignment.center,
