@@ -4,9 +4,19 @@ import 'package:flutter_cripto_coins/User/repository/firebase_auth_api.dart';
 class AuthRepositoryAPI {
 
   final _firebaseAuthAPI = FirebaseAuthAPI();
+  String email;
+  String password;
 
-  Future signInFirebase() => _firebaseAuthAPI.signIn();
+  Future signInFirebaseGoogle() => _firebaseAuthAPI.signInGoogle();
 
-  signOut() => _firebaseAuthAPI.signOut();
+  Future signInFirebase() => _firebaseAuthAPI.signIn(email, password);
+
+  Future signUpFirebase() => _firebaseAuthAPI.signUp(email, password);
+
+  Future isSignedFirebase() => _firebaseAuthAPI.isSignedIn();
+
+  Future getCurrentUserFirebase() => _firebaseAuthAPI.getCurrentUser();
+
+  Future signOut() => _firebaseAuthAPI.signOut();
 
 }

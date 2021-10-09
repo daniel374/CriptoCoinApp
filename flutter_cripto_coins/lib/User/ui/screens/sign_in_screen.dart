@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cripto_coins/User/ui/screens/register_screen.dart';
 import 'package:flutter_cripto_coins/widgets/button_white.dart';
 import 'package:flutter_cripto_coins/widgets/button_green.dart';
 import 'package:flutter_cripto_coins/User/bloc/bloc_user.dart';
@@ -60,16 +61,27 @@ class _SignUnScreen extends State<SignInScreen> {
                 fontWeight: FontWeight.bold
               ),
               ),
-              ButtonWhite(text: "Crear Cuenta", onPressed: (){
+              Padding(padding: EdgeInsets.all(56.0)),
+              ButtonWhite(text: "Login",
+                onPressed: () {
 
               },
               width: 300.0,
               height: 50.0,
               ),
+              ButtonWhite(text: "Crear Cuenta",
+                onPressed: () {
+                  Navigator.push(
+                      context, 
+                      MaterialPageRoute(builder: (context) => const RegisterScreen()),);
+                },
+                width: 300.0,
+                height: 50.0,
+              ),
               ButtonGreen(
                 text: "Login con Gmail",
                 onPressed: () {
-                  userBloc.signIn().then((user) => print("El user es: ${user.displayName}"));
+                  userBloc.signInGoogle().then((user) => print("El user es: ${user.displayName}"));
               },
                 width: 300.0,
                 height: 50.0,

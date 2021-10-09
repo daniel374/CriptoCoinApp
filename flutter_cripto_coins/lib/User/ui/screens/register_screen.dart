@@ -6,6 +6,8 @@ import 'package:flutter/services.dart';
 
 class RegisterScreen extends StatefulWidget {
 
+  const RegisterScreen({Key key}) : super(key: key);
+
   @override
   State createState() {
     return _RegisterScreen();
