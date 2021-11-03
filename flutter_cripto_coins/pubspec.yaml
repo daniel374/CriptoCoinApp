@@ -42,6 +42,8 @@ dependencies:
   slide_drawer: ^1.0.3
   drawer_swipe: ^0.0.4
   money2: ^2.2.3
+  crypto: ^3.0.1
+  http: ^0.13.4
 
   provider: ^6.0.0
 
