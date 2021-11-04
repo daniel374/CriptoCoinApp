@@ -13,15 +13,6 @@ const List<StaggeredTile> _staggeredTiles = <StaggeredTile>[
   StaggeredTile.count(4, 1),
 ];
 
-// const List<_ShowCryptoMoneys> _tiles = [
-//   _ShowCryptoMoneys(Colors.black, Icons.radio, "AUDNZD", '03.27.27', "105361.00000", "104189.00000", "36", "1.05222", "1.05258", Colors.blue),
-//   _ShowCryptoMoneys(Colors.black, Icons.radio, "AUDCHF", '12.00.00', "--", "--", "0", "0.00000", "0.00000", Colors.blue),
-//   _ShowCryptoMoneys(Colors.black, Icons.radio, "AUDCAD", '03.27.37', "92268.00000", "91717.00000", "24", "0.91725", "0.91749", Colors.blue),
-//   _ShowCryptoMoneys(Colors.black, Icons.radio, "AUDJPY", '03.27.28', "80.234", "79.573", "28", "79.632", "79.660", Colors.red),
-//   _ShowCryptoMoneys(Colors.black, Icons.radio, "CHFJPY", '03.27.36', "120.098", "119.567", "21", "120.063", "120.084", Colors.blue),
-// ];
-
-
 class ShowCryptoMoneys extends StatefulWidget {
 
   @override
@@ -50,7 +41,7 @@ class _ShowCryptoMoneysState extends State<ShowCryptoMoneys> {
               Icons.radio,
               item["name"],
               '03.27.27',
-              "105361.00000",
+              item["quote"]["USD"]["price"].toString(),
               "104189.00000",
               "36",
               "1.05222",
@@ -98,7 +89,7 @@ class _ShowCryptoMoneysState extends State<ShowCryptoMoneys> {
                     mainAxisSpacing: 4,
                     crossAxisSpacing: 4,
                     padding: const EdgeInsets.all(4),
-                    children: _listCryptoMOneysData(snapshot.data),//_listCryptoMOneysData(snapshot.data.documents.map),//_tiles
+                    children: _listCryptoMOneysData(snapshot.data),
                     )
                   ),
                 ],
@@ -121,7 +112,7 @@ class _ShowCryptoMoneysState extends State<ShowCryptoMoneys> {
     List<Widget> moneys = [];
 
     for(var money in data){
-      moneys.add(_CriptoMoneyCard(Colors.black, Icons.radio, money.cripto_money, '03.27.27', "105361.00000", "104189.00000", "36", "1.05222", "1.05258", Colors.blue));
+      moneys.add(_CriptoMoneyCard(Colors.black, Icons.radio, money.cripto_money, '03.27.27', money.hight_value, "104189.00000", "36", "1.05222", "1.05258", Colors.blue));
     }
 
     return moneys.toList();
