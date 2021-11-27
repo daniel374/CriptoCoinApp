@@ -11,14 +11,14 @@ class TextInputField extends StatefulWidget {
   final String labelText;
   final int maxLines;
   final IconButton suffixIcon;
-  //final bool obscureText;
+  final obscureText;
 
   TextInputField({Key key,
     @required this.hintText,
     @required this.inpuType,
     this.controller,
     @required this.maxLines,
-    //@required this.obscureText,
+    this.obscureText,
     this.icon,
     this.labelText,
     this.suffixIcon,
@@ -34,7 +34,7 @@ class _TextInputFieldState extends State<TextInputField> {
     return Container(
       padding: EdgeInsets.only(top: 20.0, right: 20.0, left: 20.0),
       child: TextField(
-        //obscureText: widget.obscureText,
+        obscureText: (widget.obscureText!=null)?widget.obscureText:false,
         controller: widget.controller,
         keyboardType: widget.inpuType,
         maxLines: widget.maxLines,
