@@ -48,7 +48,6 @@ class _RegisterScreen extends State<RegisterScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      TitleHeader(title: "Registro \n", fontSize: 25.0),
                       TitleHeader(title: "Cripto Coins App", fontSize: 35.0,),
                       MyTextFormField(
                         maxLines: 1,

@@ -49,6 +49,7 @@ dependencies:
   crypto: ^3.0.1
   http: ^0.13.4
   rxdart: ^0.27.3
+  flutter_auth_buttons: ^0.10.0
 
   provider: ^6.0.0
 

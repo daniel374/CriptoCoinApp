@@ -44,7 +44,6 @@ class _MySignInScreen extends State<MySignInScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      TitleHeader(title: "Login \n", fontSize: 25.0),
                       TitleHeader(title: "Cripto Coins App", fontSize: 35.0,),
                       MyTextFormField(
                         maxLines: 1,
@@ -79,7 +78,7 @@ class _MySignInScreen extends State<MySignInScreen> {
                         hintText: 'Contraseña',
                       ),
                       ButtonWhite(
-                        text: "Registro",
+                        text: "Login",
                         onPressed: () {
                           if (_formKey.currentState.validate()) {
                             loginUser();

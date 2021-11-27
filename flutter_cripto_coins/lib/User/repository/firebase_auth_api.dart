@@ -75,6 +75,10 @@ class FirebaseAuthAPI {
           country: country,
           email: auth.user.email,
           uid: auth.user.uid));
+      await auth.user.updateDisplayName(name);
+      await auth.user.reload();
+
+
       return auth.user;
     } catch (e) {
       print(e.toString());
