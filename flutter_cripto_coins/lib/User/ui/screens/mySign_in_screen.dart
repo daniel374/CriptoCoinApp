@@ -1,37 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cripto_coins/User/repository/firebase_auth_api.dart';
 import 'package:flutter_cripto_coins/widgets/button_white.dart';
 import 'package:flutter_cripto_coins/widgets/gradient_back.dart';
 import 'package:flutter_cripto_coins/widgets/mytext_form_field.dart';
 import 'package:flutter_cripto_coins/widgets/title_header.dart';
-import 'package:flutter_cripto_coins/User/repository/firebase_auth_api.dart';
 
-class RegisterScreen extends StatefulWidget {
 
-  const RegisterScreen({Key key}) : super(key: key);
+class MySignInScreen extends StatefulWidget {
+
+  const MySignInScreen({Key key}) : super(key: key);
 
   @override
   State createState() {
-    return _RegisterScreen();
+    return _MySignInScreen();
   }
 }
 
-class _RegisterScreen extends State<RegisterScreen> {
+
+class _MySignInScreen extends State<MySignInScreen> {
   final _controllerEmail = TextEditingController();
   final _controllerPassword = TextEditingController();
-  final _controllerCountry = TextEditingController();
-  final _controllerCellPhone = TextEditingController();
-  final _controllerName = TextEditingController();
-  final _controllerLastName = TextEditingController();
 
   final FirebaseAuthAPI firebaseAuthAPI = FirebaseAuthAPI();
-
 
   final _formKey = GlobalKey<FormState>();
   bool _isObscure = true;
 
   @override
   Widget build(BuildContext context) {
-    //final Responsive responsive = Responsive.of(context);
 
     return Scaffold(
       body: Stack(
@@ -48,36 +44,8 @@ class _RegisterScreen extends State<RegisterScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      TitleHeader(title: "Registro \n", fontSize: 25.0),
+                      TitleHeader(title: "Login \n", fontSize: 25.0),
                       TitleHeader(title: "Cripto Coins App", fontSize: 35.0,),
-                      MyTextFormField(
-                        maxLines: 1,
-                        hintText: 'Nombre',
-                        controller: _controllerName,
-                        obscureText: false,
-                        prefixIcon: Icon(Icons.person),
-                      ),
-                      MyTextFormField(
-                        maxLines: 1,
-                        hintText: 'Apellido',
-                        controller: _controllerLastName,
-                        obscureText: false,
-                        prefixIcon: Icon(Icons.person),
-                      ),
-                      MyTextFormField(
-                        maxLines: 1,
-                        hintText: 'País',
-                        controller: _controllerCountry,
-                        obscureText: false,
-                        prefixIcon: Icon(Icons.place),
-                      ),
-                      MyTextFormField(
-                        maxLines: 1,
-                        hintText: 'Teléfono',
-                        controller: _controllerCellPhone,
-                        obscureText: false,
-                        prefixIcon: Icon(Icons.phone),
-                      ),
                       MyTextFormField(
                         maxLines: 1,
                         controller: _controllerEmail,
@@ -114,7 +82,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                         text: "Registro",
                         onPressed: () {
                           if (_formKey.currentState.validate()) {
-                            createUser();
+                            loginUser();
                           }
                         },
                         width: 150.0,
@@ -127,13 +95,13 @@ class _RegisterScreen extends State<RegisterScreen> {
         ],
       ),
     );
+
   }
 
   void tooglePasswordVisibility() => setState(() => _isObscure = !_isObscure);
 
-  void createUser() async {
-    dynamic result = await firebaseAuthAPI.signUp(_controllerName.text,_controllerLastName.text,_controllerCellPhone.text,_controllerCountry.text,
-        _controllerEmail.text, _controllerPassword.text);
+  void loginUser() async {
+    dynamic result = await firebaseAuthAPI.signIn(_controllerEmail.text, _controllerPassword.text);
     if (result == null) {
       print('Email invalido');
     } else {
@@ -143,4 +111,5 @@ class _RegisterScreen extends State<RegisterScreen> {
       Navigator.pop(context);
     }
   }
+
 }

@@ -24,7 +24,7 @@ class DataChartsMoneyTrading extends StatelessWidget {
       ),
       body: Container(
         padding: const EdgeInsets.all(20),
-        child: ChartsMoneyTrading(data),
+        child: ChartsMoneyTrading(),//ChartsMoneyTrading(data),
       ),
     );
   }

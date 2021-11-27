@@ -39,7 +39,7 @@ class _HistoryOperations extends State<HistoryOperations> {
       ),
       body: Stack(
         children: [
-          GradientBack("", null),
+          GradientBack(height: null,),
           DataTable(
           columns: <DataColumn>[
             DataColumn(

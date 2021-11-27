@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cripto_coins/User/ui/screens/register_screen.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:flutter_cripto_coins/User/bloc/bloc_user.dart';
-import 'package:flutter_cripto_coins/User/ui/screens/sign_in_screen.dart';
+import 'package:flutter_cripto_coins/User/ui/screens/in_app_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
+
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
   runApp(MyApp());
+
 }
 
 class MyApp extends StatelessWidget {
@@ -19,7 +21,7 @@ class MyApp extends StatelessWidget {
     return BlocProvider(
         child: MaterialApp(
           title: 'Cripto Coins',
-          home: SignInScreen(),
+          home: InAppScreen(),
           //home: RegisterScreen(),
           //home: MenuOperations(),
           // home: HistoryOperations(),

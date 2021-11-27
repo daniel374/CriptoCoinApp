@@ -1,29 +1,80 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_cripto_coins/User/model/user.dart';
+import 'package:flutter_cripto_coins/User/repository/cloud_firestore_repository.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import 'cloud_firestore_api.dart';
+
+class SignUpFailure implements Exception {}
+
 class FirebaseAuthAPI {
+  FirebaseAuth fbAuth = FirebaseAuth.instance;
+  GoogleSignIn googleSignIn = GoogleSignIn();
 
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final GoogleSignIn googleSignIn = GoogleSignIn();
+  // Constructor
+  FirebaseAuthAPI({FirebaseAuth fbAuth, GoogleSignIn googleSignIn})
+      : fbAuth = fbAuth ?? FirebaseAuth.instance,
+        googleSignIn = googleSignIn ?? GoogleSignIn();
 
-  Future<User> signInGoogle() async {
+  Future<User> signInGoogle({BuildContext context}) async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    User user;
+
     GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
-
     GoogleSignInAuthentication gSA = await googleSignInAccount.authentication;
 
-    User userCredential = (await _auth.signInWithCredential(
-      GoogleAuthProvider.credential(idToken: gSA.idToken, accessToken: gSA.accessToken,)
-    )) as User;
+    if (googleSignInAccount != null) {
+      AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: gSA.accessToken,
+        idToken: gSA.idToken,
+      );
 
-    return userCredential;
+      try {
+        final UserCredential userCredential =
+            await auth.signInWithCredential(credential);
 
-    //notifyListener();
+        user = userCredential.user;
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'account-exists-with-different-credential') {
+          ScaffoldMessenger.of(context).showSnackBar(
+            FirebaseAuthAPI.customSnackBar(
+              content:
+                  'The account already exists with a different credential.',
+            ),
+          );
+        } else if (e.code == 'invalid-credential') {
+          ScaffoldMessenger.of(context).showSnackBar(
+            FirebaseAuthAPI.customSnackBar(
+              content: 'Error occurred while accessing credentials. Try again.',
+            ),
+          );
+        }
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          FirebaseAuthAPI.customSnackBar(
+            content: 'Error occurred using Google Sign-In. Try again.',
+          ),
+        );
+      }
+    }
+
+    return user;
   }
+
   // Sign Up with email and password
-  Future<User> signUp(String email, String password) async {
-    try{
-      var auth = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+  Future<User> signUp(String name, String lastName, String phoneOne,
+      String country, String email, String password) async {
+    try {
+      var auth = await fbAuth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      await CloudFirestoreAPI().updateUserData(UserStore(
+          name: name,
+          lastname: lastName,
+          phoneOne: phoneOne,
+          country: country,
+          email: auth.user.email,
+          uid: auth.user.uid));
       return auth.user;
     } catch (e) {
       print(e.toString());
@@ -32,8 +83,9 @@ class FirebaseAuthAPI {
 
   // Sign In with email and password
   Future<User> signIn(String email, String password) async {
-    try{
-      var auth = await _auth.signInWithEmailAndPassword(email: email, password: password);
+    try {
+      var auth = await fbAuth.signInWithEmailAndPassword(
+          email: email, password: password);
       return auth.user;
     } catch (e) {
       print(e.toString());
@@ -42,19 +94,29 @@ class FirebaseAuthAPI {
 
   // Sign Out
   Future<void> signOut() async {
-    await _auth.signOut().then((value) => print("Sessión cerrada"));
-    googleSignIn.signOut();
-    print("Sesiones cerradas");
+    return Future.wait([ fbAuth.signOut().then((value) => print("Sessión cerrada")),
+    googleSignIn.signOut().then((value) => print("Sesiones cerradas")),
+    ]);
   }
 
   // check Sign In
   Future<void> isSignedIn() async {
-    var currentUser = await _auth.currentUser;
+    var currentUser = await fbAuth.currentUser;
     return currentUser != null;
   }
 
   // get current user
   Future<void> getCurrentUser() async {
-    return await _auth.currentUser;
+    return await fbAuth.currentUser;
+  }
+
+  static SnackBar customSnackBar({String content}) {
+    return SnackBar(
+      backgroundColor: Colors.black,
+      content: Text(
+        content,
+        style: TextStyle(color: Colors.redAccent, letterSpacing: 0.5),
+      ),
+    );
   }
 }

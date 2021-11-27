@@ -28,7 +28,7 @@ class _NewsMoneyTrading extends State<NewsMoneyTrading>{
       body: Stack(
         //alignment: Alignment.center,
         children: [
-          GradientBack("", null),
+          GradientBack(height: null,),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text("Noticias")

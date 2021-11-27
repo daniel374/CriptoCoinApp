@@ -14,7 +14,7 @@ class HeaderAppBar extends StatelessWidget {
       body: Stack(
       //alignment: Alignment.center,
       children: [
-        GradientBack("Bienvenido",250.0 ),
+        GradientBack(height: 250.0, ),
       ],
     ),
     );

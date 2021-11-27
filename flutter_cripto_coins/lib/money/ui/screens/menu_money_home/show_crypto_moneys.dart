@@ -1,17 +1,16 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_cripto_coins/User/ui/screens/add_cryptocurrency_user.dart';
+import 'package:flutter_cripto_coins/money/model/cryptocurrency.dart';
 import 'package:flutter_cripto_coins/widgets/gradient_back.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:http/http.dart' as http;
 
-const List<StaggeredTile> _staggeredTiles = <StaggeredTile>[
-  StaggeredTile.count(4, 1),
-  StaggeredTile.count(4, 1),
-  StaggeredTile.count(4, 1),
-  StaggeredTile.count(4, 1),
-  StaggeredTile.count(4, 1),
-];
+import 'menu_operations.dart';
+
+
+List<StaggeredTile> _staggeredTiles = <StaggeredTile>[];
 
 class ShowCryptoMoneys extends StatefulWidget {
 
@@ -40,13 +39,14 @@ class _ShowCryptoMoneysState extends State<ShowCryptoMoneys> {
           _ShowCryptoMoneys(Colors.black,
               Icons.radio,
               item["name"],
-              '03.27.27',
-              item["quote"]["USD"]["price"].toString(),
-              "104189.00000",
-              "36",
-              "1.05222",
-              "1.05258",
+              item["num_market_pairs"].toStringAsFixed(3),
+              item["quote"]["USD"]["price"].toStringAsFixed(3),
+              item["slug"],
+              item["quote"]["USD"]["percent_change_1h"].toStringAsFixed(3),
               Colors.blue)
+        );
+        _staggeredTiles.add(
+          StaggeredTile.count(4, 1)
         );
       }
 
@@ -80,7 +80,7 @@ class _ShowCryptoMoneysState extends State<ShowCryptoMoneys> {
               print(snapshot.data);
               return Stack(
                 children: [
-                  GradientBack("", null),
+                  GradientBack(height: null,),
                   Padding(
                     padding: const EdgeInsets.only(top: 12),
                     child: StaggeredGridView.count(
@@ -112,7 +112,7 @@ class _ShowCryptoMoneysState extends State<ShowCryptoMoneys> {
     List<Widget> moneys = [];
 
     for(var money in data){
-      moneys.add(_CriptoMoneyCard(Colors.black, Icons.radio, money.cripto_money, '03.27.27', money.hight_value, "104189.00000", "36", "1.05222", "1.05258", Colors.blue));
+      moneys.add(_CriptoMoneyCard(Colors.black, Icons.radio, money.cryptoMoney, money.numMarketPairs, money.hightValue, money.slug, money.percentChangeOneH, Colors.blue));
     }
 
     return moneys.toList();
@@ -124,57 +124,65 @@ class _ShowCryptoMoneys {
 
   Color backgroundColor;
   IconData iconData;
-  String cripto_money;
-  String money_num;
-  String hight_value;
-  String low_value;
-  String differential_value;
-  String one_value;
-  String two_value;
-  Color color_values;
+  String cryptoMoney;
+  String numMarketPairs;
+  String hightValue;
+  String slug;
+  String percentChangeOneH;
+  Color colorValues;
 
-  _ShowCryptoMoneys(backgroundColor, iconData, cripto_money,
-      money_num, hight_value,
-      low_value, differential_value,
-      one_value, two_value, color_values) {
+  _ShowCryptoMoneys(backgroundColor, iconData, cryptoMoney,
+      numMarketPairs, hightValue, slug,
+      percentChangeOneH, colorValues) {
     this.backgroundColor = backgroundColor;
     this.iconData = iconData;
-    this.cripto_money = cripto_money;
-    this.money_num = money_num;
-    this.hight_value = hight_value;
-    this.low_value = low_value;
-    this.differential_value = differential_value;
-    this.one_value = one_value;
-    this.two_value = two_value;
-    this.color_values = color_values;
+    this.cryptoMoney = cryptoMoney;
+    this.numMarketPairs = numMarketPairs;
+    this.hightValue = hightValue;
+    this.slug = slug;
+    this.percentChangeOneH = percentChangeOneH;
+    this.colorValues = colorValues;
   }
 }
 
 class _CriptoMoneyCard extends StatelessWidget {
 
-  const _CriptoMoneyCard(
-      this.backgroundColor, this.iconData, this.cripto_money, this.money_num,
-      this.hight_value, this.low_value, this.differential_value,
-      this.one_value, this.two_value, this.color_values
-      );
-
   final Color backgroundColor;
   final IconData iconData;
-  final String cripto_money;
-  final String money_num;
-  final String hight_value;
-  final String low_value;
-  final String differential_value;
-  final String one_value;
-  final String two_value;
-  final Color color_values;
+  final String cryptoMoney;
+  final String numMarketPairs;
+  final String hightValue;
+  final String slug;
+  final String percentChangeOneH;
+  final Color colorValues;
+
+
+  const _CriptoMoneyCard(
+      this.backgroundColor, this.iconData, this.cryptoMoney, this.numMarketPairs,
+      this.hightValue, this.slug, this.percentChangeOneH, this.colorValues
+      );
+
 
   @override
   Widget build(BuildContext context) {
     return Card(
       color: backgroundColor,
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          print("mostrar info cryptomoneda "+cryptoMoney+" "+slug+" "+hightValue);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => AddCryptocurrencyUser(
+                      cryptocurrency: Cryptocurrency(
+                        name: cryptoMoney,
+                        price: hightValue,
+                        slug: slug,
+                        percentChangeOneH: percentChangeOneH,
+                      ),
+                    )),
+          );
+        },
         child: Row(
           //mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -183,14 +191,17 @@ class _CriptoMoneyCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(cripto_money, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white70)),
+                Container(
+                  height: 30.0,
+                  width: 120.0,
+                  child: FittedBox(
+                    fit: BoxFit.fill,
+                    child: Text(cryptoMoney, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white70)),
+                  ),
+                ),
                 SizedBox(height: 4),
-                Text(money_num, style: TextStyle(fontSize: 12, color: Colors.white70)),
-                Text("Diferencial: "+differential_value, style: TextStyle(fontSize: 12, color: Colors.white70)),
-                /*ListTile(
-                  title: Text('AUDNZD'),
-                  subtitle: Text('03.27.27'),
-                ),*/
+                Text("No. de pares: "+numMarketPairs, style: TextStyle(fontSize: 12, color: Colors.white70)),
+                Text("% de cambio 1h: "+percentChangeOneH, style: TextStyle(fontSize: 12, color: Colors.white70)),
               ],
             ),
             Spacer(flex: 1,),
@@ -198,9 +209,15 @@ class _CriptoMoneyCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(one_value, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: color_values)),
+                Container(
+                  width: 100.0,
+                    child: FittedBox(
+                        fit: BoxFit.fitWidth,
+                        child: Text("\$ "+hightValue, style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: colorValues)
+                        )
+                    )
+                ),
                 SizedBox(height: 25),
-                Text("Alto: "+hight_value, style: TextStyle(fontSize: 12, color: Colors.white70 )),
               ],
             ),
             Spacer(flex: 1,),
@@ -208,9 +225,17 @@ class _CriptoMoneyCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(two_value, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: color_values)),
+                Container(
+                  padding: EdgeInsets.only(top: 0.0, left: 5.0),
+                  child: SizedBox(
+                    height: 25.0,
+                    width: 25.0,
+                    child: IconButton(
+                      icon: Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 45.0,),
+                    ),
+                  ),
+                ),
                 SizedBox(height: 25),
-                Text("Bajo: "+low_value, style: TextStyle(fontSize: 12, color: Colors.white70)),
               ],
             ),
             Spacer(flex: 1,),

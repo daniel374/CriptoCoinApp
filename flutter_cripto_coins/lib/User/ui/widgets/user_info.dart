@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cripto_coins/User/model/user.dart';
 
 class UserInfo extends StatelessWidget {
 
-  String imgProfile;
-  String name;
-  String email;
+  UserStore user;
 
-  UserInfo(this.imgProfile, this.name, this.email);
+  UserInfo(@required this.user);
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +23,59 @@ class UserInfo extends StatelessWidget {
           style: BorderStyle.solid
         ),
         shape: BoxShape.circle,
-        image: DecorationImage(
-          fit: BoxFit.cover,
-          image: AssetImage(imgProfile)
-        )
+          image: DecorationImage(
+              fit: BoxFit.cover,
+              //image: AssetImage(user.photoURL)
+              image: (user.photoURL != null)
+                  ? NetworkImage(user.photoURL)
+                  : NetworkImage(
+                  'https://clubdeescritura.com/wp-content/uploads/users-54/user-53932/2017/05/photo-300x300.png'),
+          )
       ),
     );
 
+    print('nombre: '+user.name+' email: '+user.email);
+    final userInfo = Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          margin: EdgeInsets.only(
+            bottom: 5.0
+          ),
+          child: Text(
+            (user.name!= null) ? user.name : '',
+            style: TextStyle(
+              fontSize: 18.0,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+              fontFamily: 'Lato',
+            ),
+          ),
+        ),
+        Text(
+          (user.email!= null) ? user.email : '',
+          style: TextStyle(
+            fontSize: 15.0,
+            color: Colors.white30,
+            fontFamily: 'Lato',
+          ),
+        )
+      ],
+    );
+
+
+    return Container(
+      margin: EdgeInsets.symmetric(
+        vertical: 20.0,
+        horizontal: 0.0
+      ),
+      child: Row(
+        children: [
+          userPhoto,
+          userInfo
+        ],
+      ),
+    );
 
   }
 }

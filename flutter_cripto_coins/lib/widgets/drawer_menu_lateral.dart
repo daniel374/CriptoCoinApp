@@ -154,37 +154,22 @@ class DrawerMenuLateral extends StatelessWidget {
                   ),
                   const SizedBox(height: 16,),
                   buildMenuItem(
+                    text: Text("Crypto monedas", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 18),),
+                    icon: Icons.money,
+                    onClicked: () => selectedItem(context, 7),
+                  ),
+                  const SizedBox(height: 16,),
+                  buildMenuItem(
                     text: Text("Acerca del programa", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 18),),
                     icon: Icons.info,
                     onClicked: () => selectedItem(context, 6),
                   ),
-                  const SizedBox(height: 16,),
-                  buildMenuItem(
-                    text: Text("Crypto monedas", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 18),),
-                    icon: Icons.info,
-                    onClicked: () => selectedItem(context, 7),
-                  ),
+
                 ],
               ),
 
             )
 
-
-            // Ink(
-            //   decoration: BoxDecoration(
-            //       color: Color(0xFF23918416),
-            //       border: Border(
-            //           bottom: BorderSide(color: Colors.black54)
-            //       )
-            //   ),
-            //   child: ListTile(
-            //     title: Text("Compartir App", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 18),),
-            //     leading: Icon(Icons.people),
-            //     onTap: () {
-            //       Navigator.pushNamed(context, "/avatars");
-            //     },
-            //   ),
-            // ),
           ],
         )
 
