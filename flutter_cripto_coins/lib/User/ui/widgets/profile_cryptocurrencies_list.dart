@@ -16,6 +16,9 @@ class ProfileCryptocurrenciesList extends StatefulWidget {
 class _ProfileCryptocurrenciesListState extends State<ProfileCryptocurrenciesList> {
   UserBloc userBloc;
 
+  List dataCotizaciones;
+
+
   Cryptocurrency cryptocurrency = Cryptocurrency(
       name: "Bitcoin",
       sharesCount: "30",
@@ -76,9 +79,13 @@ class _ProfileCryptocurrenciesListState extends State<ProfileCryptocurrenciesLis
               case ConnectionState.none:
                 return CircularProgressIndicator();
               default:
-                print("SNAPSHOT  "+snapshot.data.docs[0].toString());
+                if(["", null, false, 0].contains(snapshot.data.docs)){
+                  print("SNAPSHOT  "+snapshot.data.docs[0].toString());
+                  return Column(children: snapshot.data.docs.map((doc) => buildItem(doc, userBloc)).toList());
+                }else{
+                  return CircularProgressIndicator();
+                }
 
-                return Column(children: snapshot.data.docs.map((doc) => buildItem(doc, userBloc)).toList());
             }
           }else{
             return CircularProgressIndicator();

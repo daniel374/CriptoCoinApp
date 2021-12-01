@@ -73,6 +73,7 @@ class FirebaseAuthAPI {
           lastname: lastName,
           phoneOne: phoneOne,
           country: country,
+          password: password,
           email: auth.user.email,
           uid: auth.user.uid));
       await auth.user.updateDisplayName(name);

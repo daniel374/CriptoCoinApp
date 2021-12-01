@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_cripto_coins/money/ui/screens/charts_money/data_charts_money_trading.dart';
 import 'package:flutter_cripto_coins/money/ui/screens/home_money_trading.dart';
 import 'package:flutter_cripto_coins/money/ui/screens/menu_money_home/history_operations.dart';
 import 'package:flutter_cripto_coins/money/ui/screens/menu_money_home/menu_operations.dart';
@@ -43,7 +42,7 @@ class DrawerMenuLateral extends StatelessWidget {
         break;
       case 1:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => DataChartsMoneyTrading(),
+          builder: (context) => ShowCryptoMoneys(),
         ));
         break;
       case 2:
@@ -69,11 +68,6 @@ class DrawerMenuLateral extends StatelessWidget {
       case 6:
         Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => HomeMoneyTrading(),
-        ));
-        break;
-      case 7:
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => ShowCryptoMoneys(),
         ));
         break;
     }
@@ -118,14 +112,14 @@ class DrawerMenuLateral extends StatelessWidget {
                 children: [
                   const SizedBox(height: 16,),
                   buildMenuItem(
-                    text: Text("De cotizaciones", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 18),),
+                    text: Text("Cotizaciones", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 18),),
                     icon: Icons.request_quote_outlined,
                     onClicked: () => selectedItem(context, 0),
                   ),
                   const SizedBox(height: 16,),
                   buildMenuItem(
-                    text: Text("Gráficos", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 18),),
-                    icon: Icons.auto_graph_outlined,
+                    text: Text("Crypto monedas", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 18),),
+                    icon: Icons.money,
                     onClicked: () => selectedItem(context, 1),
                   ),
                   const SizedBox(height: 16,),
@@ -151,12 +145,6 @@ class DrawerMenuLateral extends StatelessWidget {
                     text: Text("Ajustes", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 18),),
                     icon: Icons.app_settings_alt_rounded,
                     onClicked: () => selectedItem(context, 5),
-                  ),
-                  const SizedBox(height: 16,),
-                  buildMenuItem(
-                    text: Text("Crypto monedas", style: TextStyle(color: Colors.white, fontWeight: FontWeight.w900, fontSize: 18),),
-                    icon: Icons.money,
-                    onClicked: () => selectedItem(context, 7),
                   ),
                   const SizedBox(height: 16,),
                   buildMenuItem(
