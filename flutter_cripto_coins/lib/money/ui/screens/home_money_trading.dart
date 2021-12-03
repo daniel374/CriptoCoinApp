@@ -14,7 +14,10 @@ class HomeMoneyTrading extends StatelessWidget {
           ],
 
         ),
-        HeaderAppBar()
+        HeaderAppBar(
+          titleHeader: "Bienvenido a Cripto Coins App",
+          sizeHeader: 35.0,
+        )
       ],
     );
 

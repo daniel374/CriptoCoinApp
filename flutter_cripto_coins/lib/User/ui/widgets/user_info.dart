@@ -11,10 +11,11 @@ class UserInfo extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final userPhoto = Container(
-      width: 90.0,
-      height: 90.0,
+      width: 70.0,
+      height: 70.0,
       margin: EdgeInsets.only(
-        right: 20.0
+        top: 0.0,
+        right: 10.0
       ),
       decoration: BoxDecoration(
         border: Border.all(
@@ -34,41 +35,42 @@ class UserInfo extends StatelessWidget {
       ),
     );
 
-    print('nombre: '+user.name+' email: '+user.email);
-    final userInfo = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
+    //print('nombre: ' + user.name + ' email: ' + user.email);
+    final userInfo = Flexible(
+        child: Container(
           margin: EdgeInsets.only(
-            bottom: 5.0
+              top: 10.0
           ),
-          child: Text(
-            (user.name!= null) ? user.name : '',
-            style: TextStyle(
-              fontSize: 18.0,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-              fontFamily: 'Lato',
-            ),
-          ),
-        ),
-        Text(
-          (user.email!= null) ? user.email : '',
-          style: TextStyle(
-            fontSize: 15.0,
-            color: Colors.white30,
-            fontFamily: 'Lato',
+          height: 130.0,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                margin: EdgeInsets.only(top: 40.0, bottom: 5.0),
+                child: Text(
+                  (user.name != null) ? user.name : '',
+                  style: TextStyle(
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontFamily: 'Lato',
+                  ),
+                ),
+              ),
+              Text(
+                (user.email != null) ? user.email : '',
+                style: TextStyle(
+                  fontSize: 15.0,
+                  color: Colors.white30,
+                  fontFamily: 'Lato',
+                ),
+              )
+            ],
           ),
         )
-      ],
     );
 
-
     return Container(
-      margin: EdgeInsets.symmetric(
-        vertical: 20.0,
-        horizontal: 0.0
-      ),
       child: Row(
         children: [
           userPhoto,

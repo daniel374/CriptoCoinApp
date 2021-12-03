@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cripto_coins/User/bloc/bloc_user.dart';
 import 'package:flutter_cripto_coins/User/model/user.dart';
-import 'package:flutter_cripto_coins/User/ui/widgets/button_bar_profile.dart';
 import 'package:flutter_cripto_coins/User/ui/widgets/user_info.dart';
+import 'package:flutter_cripto_coins/widgets/title_header.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 
 class ProfileHeader extends StatelessWidget {
 
   UserBloc userBloc;
   UserStore user;
+  final String titleHeader;
+  final double sizeHeader;
+
+  ProfileHeader({Key key, @required this.titleHeader, @required this.sizeHeader});
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +24,9 @@ class ProfileHeader extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           switch(snapshot.connectionState){
             case ConnectionState.waiting:
-              return CircularProgressIndicator();
             case ConnectionState.none:
-              return CircularProgressIndicator();
+              //return CircularProgressIndicator();
             case ConnectionState.active:
-              return showProfileData(snapshot);
             case ConnectionState.done:
               return showProfileData(snapshot);
           }
@@ -35,38 +37,30 @@ class ProfileHeader extends StatelessWidget {
 
   Widget showProfileData(AsyncSnapshot snapshot) {
     if(!snapshot.hasData || snapshot.hasError) {
-      print("No logueado");
+      //print("No logueado");
       return Container(
-        margin: EdgeInsets.only(
-            left: 20.0,
-            right: 20.0,
-            top: 50.0
-        ),
+        height: 90.0,
+        margin: EdgeInsets.only(left: 20.0, right: 20.0, top: 50.0),
         child: Column(
           children: [
-            Row(
-              children: [
-                CircularProgressIndicator(),
-                Text("No se pudo cargar la información. Haz login.")
-              ],
-            ),
-            //UserInfo(),
-            ButtonBarProfile()
+            Flexible(
+              child: Row(
+                children: [
+                  CircularProgressIndicator(),
+                  Text("   cargando información...")
+                ],
+              ),
+            )
           ],
         ),
       );
     } else {
-      print("Logueado");
-      print(snapshot.data);
-      user = UserStore(name: snapshot.data.displayName, email: snapshot.data.email, photoURL: snapshot.data.photoURL);
-      final title = Text(
-        'Profile',
-        style: TextStyle(
-            fontFamily: 'Lato',
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 30.0
-        ),
+      /*print("Logueado");
+      print(snapshot.data);*/
+      user = UserStore(name: snapshot.data.displayName, lastname: '', email: snapshot.data.email, photoURL: snapshot.data.photoURL, uid: '');
+      final title = TitleHeader(
+        title: titleHeader,
+        fontSize: sizeHeader,
       );
 
       return Container(
@@ -83,7 +77,6 @@ class ProfileHeader extends StatelessWidget {
               ],
             ),
             UserInfo(user),
-            ButtonBarProfile()
           ],
         ),
       );

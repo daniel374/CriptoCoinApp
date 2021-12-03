@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_cripto_coins/User/ui/screens/profile_header.dart';
 import 'package:flutter_cripto_coins/money/ui/screens/home_money_trading.dart';
 import 'package:flutter_cripto_coins/money/ui/screens/menu_money_home/history_operations.dart';
 import 'package:flutter_cripto_coins/money/ui/screens/menu_money_home/menu_operations.dart';
@@ -80,31 +81,9 @@ class DrawerMenuLateral extends StatelessWidget {
         color: Color.fromRGBO(50, 75, 205, 1),
         child: ListView(
           children: [
-            new UserAccountsDrawerHeader(
-              accountEmail: Text("",),
-              accountName: Row(
-                children: [
-                  Container(
-                    width: 50,
-                    height: 50,
-                    decoration: BoxDecoration(shape: BoxShape.circle),
-                    child: CircleAvatar(
-                    backgroundColor: Colors.redAccent,
-                    child: Icon(
-                      Icons.check,
-                    ),  
-                    ),
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("User"),
-                      Text("@User"),
-                    ],
-                  )
-                ],
-              ),
-
+            ProfileHeader(
+              titleHeader: 'Menú',
+              sizeHeader: 30.0,
             ),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 20),
@@ -163,8 +142,6 @@ class DrawerMenuLateral extends StatelessWidget {
 
       ),
     );
-
-
 
   }
 }

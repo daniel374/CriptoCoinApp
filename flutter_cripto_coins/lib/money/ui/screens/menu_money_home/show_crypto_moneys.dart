@@ -50,7 +50,7 @@ class _ShowCryptoMoneysState extends State<ShowCryptoMoneys> {
         );
       }
 
-      print(showCrypto);
+      //print(showCrypto);
       return showCrypto;
 
     } else {
@@ -70,14 +70,14 @@ class _ShowCryptoMoneysState extends State<ShowCryptoMoneys> {
 
     return Scaffold(
         appBar: AppBar(
-          title: const Text('De Cotizaciones'),
+          title: const Text('Crypiomonedas'),
         ),
         body: FutureBuilder(
           future: _listCryptoMOneys,
           builder: (context, snapshot) {
 
             if (snapshot.hasData) {
-              print(snapshot.data);
+              //print(snapshot.data);
               return Stack(
                 children: [
                   GradientBack(height: null,),
@@ -96,7 +96,7 @@ class _ShowCryptoMoneysState extends State<ShowCryptoMoneys> {
               );
 
             } else if (snapshot.hasError) {
-              print(snapshot.hasError);
+              //print(snapshot.hasError);
               return Text("Error");
             }
 
@@ -169,7 +169,7 @@ class _CriptoMoneyCard extends StatelessWidget {
       color: backgroundColor,
       child: InkWell(
         onTap: () {
-          print("mostrar info cryptomoneda "+cryptoMoney+" "+slug+" "+hightValue);
+          //print("mostrar info cryptomoneda "+cryptoMoney+" "+slug+" "+hightValue);
           Navigator.push(
             context,
             MaterialPageRoute(

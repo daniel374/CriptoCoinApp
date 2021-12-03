@@ -4,6 +4,12 @@ import 'package:flutter_cripto_coins/widgets/gradient_back.dart';
 import 'package:flutter_cripto_coins/widgets/title_header.dart';
 
 class HeaderAppBar extends StatelessWidget {
+
+  final String titleHeader;
+  final double sizeHeader;
+
+  HeaderAppBar({Key key, @required this.titleHeader, @required this.sizeHeader});
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -25,8 +31,8 @@ class HeaderAppBar extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   TitleHeader(
-                    title: "Bienvenido a Cripto Coins App",
-                    fontSize: 35.0,
+                    title: titleHeader,
+                    fontSize: sizeHeader,
                   ),
                 ],
               ),
