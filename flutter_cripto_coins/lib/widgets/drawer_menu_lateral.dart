@@ -8,8 +8,6 @@ import 'package:flutter_cripto_coins/money/ui/screens/menu_money_home/menu_opera
 import 'package:flutter_cripto_coins/money/ui/screens/menu_money_home/news_money_trading.dart';
 import 'package:flutter_cripto_coins/money/ui/screens/menu_money_home/show_crypto_moneys.dart';
 
-import 'gradient_back.dart';
-
 
 class DrawerMenuLateral extends StatelessWidget {
 

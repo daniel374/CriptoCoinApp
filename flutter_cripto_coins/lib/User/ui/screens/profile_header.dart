@@ -11,6 +11,7 @@ class ProfileHeader extends StatelessWidget {
   UserStore user;
   final String titleHeader;
   final double sizeHeader;
+  Object title;
 
   ProfileHeader({Key key, @required this.titleHeader, @required this.sizeHeader});
 
@@ -19,49 +20,37 @@ class ProfileHeader extends StatelessWidget {
 
     userBloc = BlocProvider.of<UserBloc>(context);
 
+    title = TitleHeader(
+      title: titleHeader,
+      fontSize: sizeHeader,
+      colorTitle: Colors.white,
+    );
+
+    return showStreamData();
+
+  }
+
+  showStreamData(){
     return StreamBuilder(
         stream: userBloc.streamFirebase,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
-          switch(snapshot.connectionState){
-            case ConnectionState.waiting:
-            case ConnectionState.none:
-              //return CircularProgressIndicator();
-            case ConnectionState.active:
-            case ConnectionState.done:
-              return showProfileData(snapshot);
+          if((snapshot.connectionState == ConnectionState.waiting) || snapshot.connectionState == ConnectionState.none){
+            return waitProfileDate();
+          }else{
+            return showProfileData(snapshot);
           }
         }
     );
-
   }
 
   Widget showProfileData(AsyncSnapshot snapshot) {
     if(!snapshot.hasData || snapshot.hasError) {
       //print("No logueado");
-      return Container(
-        height: 90.0,
-        margin: EdgeInsets.only(left: 20.0, right: 20.0, top: 50.0),
-        child: Column(
-          children: [
-            Flexible(
-              child: Row(
-                children: [
-                  CircularProgressIndicator(),
-                  Text("   cargando información...")
-                ],
-              ),
-            )
-          ],
-        ),
-      );
+      return waitProfileDate();
     } else {
       /*print("Logueado");
       print(snapshot.data);*/
       user = UserStore(name: snapshot.data.displayName, lastname: '', email: snapshot.data.email, photoURL: snapshot.data.photoURL, uid: '');
-      final title = TitleHeader(
-        title: titleHeader,
-        fontSize: sizeHeader,
-      );
 
       return Container(
         margin: EdgeInsets.only(
@@ -84,4 +73,30 @@ class ProfileHeader extends StatelessWidget {
     }
   }
 
+  Widget waitProfileDate() {
+    return Container(
+      margin: EdgeInsets.only(left: 20.0, right: 20.0, top: 30.0),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              title,
+            ],
+          ),
+          Row(
+            children: [
+              Padding(padding: EdgeInsets.only(top: 50.0)),
+              CircularProgressIndicator(),
+              TitleHeader(
+                title: "    Cripto Coins App",
+                fontSize: 20.0,
+                colorTitle: Colors.white,
+              )
+            ],
+          )
+
+        ],
+      ),
+    );
+  }
 }

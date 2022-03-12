@@ -33,6 +33,7 @@ class HeaderAppBar extends StatelessWidget {
                   TitleHeader(
                     title: titleHeader,
                     fontSize: sizeHeader,
+                    colorTitle: Colors.white,
                   ),
                 ],
               ),

@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cripto_coins/User/bloc/bloc_user.dart';
-import 'package:flutter_cripto_coins/User/model/user.dart';
-import 'package:flutter_cripto_coins/User/ui/widgets/profile_cryptocurrency.dart';
 import 'package:flutter_cripto_coins/money/model/cryptocurrency.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 

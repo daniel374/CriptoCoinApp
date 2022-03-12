@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cripto_coins/User/repository/firebase_auth_api.dart';
 import 'package:flutter_cripto_coins/User/ui/screens/forgot_password.dart';
-import 'package:flutter_cripto_coins/User/ui/screens/register_screen.dart';
 
 
 class ForgotPasswordButton extends StatelessWidget {

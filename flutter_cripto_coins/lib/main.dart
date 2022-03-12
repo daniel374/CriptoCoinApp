@@ -1,9 +1,8 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cripto_coins/User/ui/screens/register_screen.dart';
-import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:flutter_cripto_coins/User/bloc/bloc_user.dart';
 import 'package:flutter_cripto_coins/User/ui/screens/in_app_screen.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 
 
 Future main() async {

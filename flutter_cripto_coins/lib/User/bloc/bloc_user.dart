@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_cripto_coins/User/model/user.dart';
+import 'package:flutter_cripto_coins/User/repository/auth_repository.dart';
 import 'package:flutter_cripto_coins/User/repository/cloud_firestore_api.dart';
 import 'package:flutter_cripto_coins/User/repository/cloud_firestore_repository.dart';
 import 'package:flutter_cripto_coins/User/ui/widgets/profile_cryptocurrency.dart';
 import 'package:flutter_cripto_coins/money/model/cryptocurrency.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
-import 'package:flutter_cripto_coins/User/repository/auth_repository.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 //import 'package:flutter_cripto_coins/User/model/user.dart';
 
 class UserBloc implements Bloc {

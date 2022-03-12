@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cripto_coins/User/model/user.dart';
 
 
 class Cryptocurrency {

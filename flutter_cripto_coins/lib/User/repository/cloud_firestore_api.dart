@@ -3,8 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_cripto_coins/User/model/user.dart';
 import 'package:flutter_cripto_coins/User/ui/widgets/profile_cryptocurrency.dart';
 import 'package:flutter_cripto_coins/money/model/cryptocurrency.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:money2/money2.dart';
 
 
 class CloudFirestoreAPI {
@@ -32,7 +30,6 @@ class CloudFirestoreAPI {
       'investment': user.investment,
       'gain': user.gain,
       'photoURL': user.photoURL,
-      'myCryptoQuotes': user.cryptoStocks,
       'lastSignIn': DateTime.now()
     }, SetOptions(merge: true));
 

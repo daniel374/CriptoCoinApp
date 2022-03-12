@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_cripto_coins/User/bloc/bloc_user.dart';
 import 'package:flutter_cripto_coins/User/ui/screens/profile_money_trading.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
@@ -17,15 +17,15 @@ class ShowMoneyTradingCupertino extends StatelessWidget {
             items: [
               BottomNavigationBarItem(
                   icon: Icon(Icons.home, color: Colors.indigo),
-                  title: Text("")
+                  label: ""
               ),
               BottomNavigationBarItem(
                   icon: Icon(Icons.search, color: Colors.indigo),
-                  title: Text("")
+                  label: ""
               ),
               BottomNavigationBarItem(
                   icon: Icon(Icons.person, color: Colors.indigo),
-                  title: Text("")
+                  label: ""
               ),
             ]
         ),
@@ -52,6 +52,10 @@ class ShowMoneyTradingCupertino extends StatelessWidget {
                 },
               );
               break;
+            default:
+              return CupertinoTabView(
+                builder: (BuildContext context) => HomeMoneyTrading(),
+              );
 
           }
 

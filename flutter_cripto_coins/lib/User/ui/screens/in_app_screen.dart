@@ -1,16 +1,12 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_cripto_coins/User/model/user.dart';
-import 'package:flutter_cripto_coins/User/ui/screens/register_screen.dart';
-import 'package:flutter_cripto_coins/widgets/button_white.dart';
-import 'package:flutter_cripto_coins/widgets/button_green.dart';
 import 'package:flutter_cripto_coins/User/bloc/bloc_user.dart';
+import 'package:flutter_cripto_coins/User/ui/screens/register_screen.dart';
+import 'package:flutter_cripto_coins/show_money_trading_cupertino.dart';
+import 'package:flutter_cripto_coins/widgets/button_white.dart';
 import 'package:flutter_cripto_coins/widgets/google_login_button.dart';
 import 'package:flutter_cripto_coins/widgets/gradient_back.dart';
-import 'package:flutter_cripto_coins/widgets/gradient_back_sign_in.dart';
 import 'package:flutter_cripto_coins/widgets/my_text_button.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
-import 'package:flutter_cripto_coins/show_money_trading_cupertino.dart';
 
 import '../../../show_money_trading_cupertino.dart';
 import 'mySign_in_screen.dart';

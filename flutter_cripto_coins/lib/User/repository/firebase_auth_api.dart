@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_cripto_coins/User/model/user.dart';
-import 'package:flutter_cripto_coins/User/repository/cloud_firestore_repository.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import 'cloud_firestore_api.dart';
@@ -11,6 +10,7 @@ class SignUpFailure implements Exception {}
 class FirebaseAuthAPI {
   FirebaseAuth fbAuth = FirebaseAuth.instance;
   GoogleSignIn googleSignIn = GoogleSignIn();
+  String _error;
 
   // Constructor
   FirebaseAuthAPI({FirebaseAuth fbAuth, GoogleSignIn googleSignIn})
@@ -33,6 +33,7 @@ class FirebaseAuthAPI {
       try {
         final UserCredential userCredential =
             await auth.signInWithCredential(credential);
+
 
         user = userCredential.user;
       } on FirebaseAuthException catch (e) {
@@ -77,7 +78,7 @@ class FirebaseAuthAPI {
           email: auth.user.email,
           uid: auth.user.uid));
       await auth.user.updateDisplayName(name);
-      await auth.user.reload();
+      //await auth.user.reload();
 
 
       return auth.user;
@@ -94,6 +95,7 @@ class FirebaseAuthAPI {
       return auth.user;
     } catch (e) {
       print(e.toString());
+      throw _error = '$e';
     }
   }
 
@@ -123,5 +125,25 @@ class FirebaseAuthAPI {
         style: TextStyle(color: Colors.redAccent, letterSpacing: 0.5),
       ),
     );
+  }
+}
+
+class EmailValidator {
+  static String validate(String value) {
+    if(value.isEmpty) {
+      return 'Email no puede estar vacío';
+    }
+    return null;
+  }
+}
+
+class PasswordValidator {
+  static String validate(String value) {
+    if (value.isEmpty) {
+      return 'La contraseña no puede estar vacía';
+    } else if (value.length<8) {
+      return 'Contraseña insegura';
+    }
+    return null;
   }
 }

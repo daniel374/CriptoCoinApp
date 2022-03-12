@@ -3,26 +3,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cripto_coins/money/model/cryptocurrency.dart';
 
 class UserStore extends Equatable{
-  final String uid;
-  final String name;
-  final String lastname;
-  final String email;
-  final String password;
-  final String country;
-  final String phoneOne;
-  final String phoneTwo;
-  final String investment;
-  final String gain;
-  final String photoURL;
-  final List<Cryptocurrency> cryptoStocks;
+  String uid;
+  String name;
+  String lastname;
+  String email;
+  String password;
+  String country;
+  String phoneOne;
+  String phoneTwo;
+  String investment;
+  String gain;
+  String photoURL;
+  List<Cryptocurrency> cryptoStocks;
 
   //myFavoritePlaces
   //myPlaces
-  const UserStore({
+  UserStore({
     Key key,
     @required this.uid,
-    @required this.name,
-    @required this.lastname,
+    this.name,
+    this.lastname,
     @required this.email,
     this.password,
     this.country,
@@ -34,7 +34,7 @@ class UserStore extends Equatable{
     this.cryptoStocks
   });
 
-  static const empty = UserStore(email: '', uid: '');
+  static var empty = UserStore(email: '', uid: '');
 
   @override
   List<Object> get props => [email, uid, name, country, phoneOne, phoneTwo, cryptoStocks];

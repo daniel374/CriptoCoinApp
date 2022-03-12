@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cripto_coins/User/repository/firebase_auth_api.dart';
 import 'package:flutter_cripto_coins/widgets/button_white.dart';
 import 'package:flutter_cripto_coins/widgets/gradient_back.dart';
 import 'package:flutter_cripto_coins/widgets/mytext_form_field.dart';
 import 'package:flutter_cripto_coins/widgets/title_header.dart';
-import 'package:flutter_cripto_coins/User/repository/firebase_auth_api.dart';
 
 class RegisterScreen extends StatefulWidget {
 

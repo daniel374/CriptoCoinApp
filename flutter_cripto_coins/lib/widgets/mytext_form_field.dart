@@ -10,6 +10,7 @@ class MyTextFormField extends StatefulWidget {
   final IconButton suffixIcon;
   final bool obscureText;
   final Function validator;
+  final Function onsave;
 
   MyTextFormField({
     @required this.obscureText,
@@ -19,6 +20,7 @@ class MyTextFormField extends StatefulWidget {
     @required this.hintText,
     @required this.maxLines,
     this.validator,
+    this.onsave,
     @required this.controller,
   });
 
@@ -46,6 +48,7 @@ class _MyTextFormField extends State<MyTextFormField> {
             color: Colors.blueGrey,
             fontWeight: FontWeight.bold),
         validator: widget.validator,
+        onSaved: widget.onsave,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.all(20.0),
           prefixIcon: widget.prefixIcon,

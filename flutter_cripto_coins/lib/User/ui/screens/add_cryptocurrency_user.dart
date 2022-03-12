@@ -1,17 +1,16 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cripto_coins/User/bloc/bloc_user.dart';
 import 'package:flutter_cripto_coins/money/model/cryptocurrency.dart';
 import 'package:flutter_cripto_coins/widgets/button_purple.dart';
 import 'package:flutter_cripto_coins/widgets/gradient_back.dart';
-import 'package:flutter_cripto_coins/widgets/text_input_field.dart';
 import 'package:flutter_cripto_coins/widgets/title_header.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
-import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class OhlcData {
   final DateTime timeOhlc;
@@ -19,22 +18,23 @@ class OhlcData {
   final double high;
   final double low;
   final double close;
-  OhlcData({this.timeOhlc, this.open, this.high, this.low, this.close});
 
+  OhlcData({this.timeOhlc, this.open, this.high, this.low, this.close});
 }
 
 class AddCryptocurrencyUser extends StatefulWidget {
-
   final Cryptocurrency cryptocurrency;
 
-  AddCryptocurrencyUser({Key key, @required this.cryptocurrency, });
+  AddCryptocurrencyUser({
+    Key key,
+    @required this.cryptocurrency,
+  });
 
   @override
   State<AddCryptocurrencyUser> createState() => _AddCryptocurrencyUserState();
 }
 
 class _AddCryptocurrencyUserState extends State<AddCryptocurrencyUser> {
-
   Future futureOhlc;
 
   List<OhlcData> _dataOhlc;
@@ -90,7 +90,6 @@ class _AddCryptocurrencyUserState extends State<AddCryptocurrencyUser> {
 
   @override
   Widget build(BuildContext context) {
-
     UserBloc userBloc = BlocProvider.of<UserBloc>(context);
     final _controllerTitlePlace = TextEditingController();
     final _controllerDespCrypto = TextEditingController();
@@ -125,7 +124,9 @@ class _AddCryptocurrencyUserState extends State<AddCryptocurrencyUser> {
                   child: Container(
                 padding: EdgeInsets.only(top: 45.0, left: 20.0, right: 10.0),
                 child: TitleHeader(
-                  title: widget.cryptocurrency.name,
+                  title: "Generar cotización",
+                  fontSize: 30.0,
+                  colorTitle: Colors.white,
                 ),
               )),
             ],
@@ -162,20 +163,27 @@ class _AddCryptocurrencyUserState extends State<AddCryptocurrencyUser> {
                     ),
                   ),
                 ),
-                Container(
-                  margin: EdgeInsets.only(bottom: 20.0),
-                  child: TextInputField(
-                    hintText: "Title",
-                    inpuType: null,
-                    maxLines: 1,
-                    controller: _controllerTitlePlace,
-                  )
-                ),
+                /*Container(
+                    margin: EdgeInsets.only(bottom: 20.0),
+                    child: TextInputField(
+                      hintText: "Title",
+                      inpuType: null,
+                      maxLines: 1,
+                      controller: _controllerTitlePlace,
+                    )),
                 TextInputField(
-                    hintText: "Description",
-                    inpuType: TextInputType.multiline,
-                    maxLines: 4,
-                    controller: _controllerDespCrypto,
+                  hintText: "Description",
+                  inpuType: TextInputType.multiline,
+                  maxLines: 4,
+                  controller: _controllerDespCrypto,
+                ),*/
+                Container(
+                  margin: EdgeInsets.all(20.0),
+                  child: TitleHeader(
+                    title: widget.cryptocurrency.name,
+                    fontSize: 30.0,
+                    colorTitle: Colors.blue,
+                  ),
                 ),
                 Container(
                   width: 70.0,
@@ -183,19 +191,22 @@ class _AddCryptocurrencyUserState extends State<AddCryptocurrencyUser> {
                     buttonText: "Cotizar",
                     onPressed: () {
                       //Cloud Firestore
-                      userBloc.updateCryptocurrencyData(Cryptocurrency(
-                          id: widget.cryptocurrency.id,
-                          name: widget.cryptocurrency.name,
-                          slug: widget.cryptocurrency.slug,
-                          sharesCount: widget.cryptocurrency.sharesCount,
-                          moneyInvested: widget.cryptocurrency.moneyInvested,
-                          price: widget.cryptocurrency.price,
-                          purchaseDate: dateNow.toString(),
-                          percentChangeOneH: widget.cryptocurrency.percentChangeOneH,
-                          status: "Cotizando",
-                          )).whenComplete(() {
-                            print("Termino cotizacin");
-                            Navigator.pop(context);
+                      userBloc
+                          .updateCryptocurrencyData(Cryptocurrency(
+                        id: widget.cryptocurrency.id,
+                        name: widget.cryptocurrency.name,
+                        slug: widget.cryptocurrency.slug,
+                        sharesCount: widget.cryptocurrency.sharesCount,
+                        moneyInvested: widget.cryptocurrency.moneyInvested,
+                        price: widget.cryptocurrency.price,
+                        purchaseDate: dateNow.toString(),
+                        percentChangeOneH:
+                            widget.cryptocurrency.percentChangeOneH,
+                        status: "Cotizando",
+                      ))
+                          .whenComplete(() {
+                        print("Termino cotizacion");
+                        Navigator.pop(context);
                       });
                     },
                   ),
