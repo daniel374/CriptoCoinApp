@@ -51,7 +51,12 @@ class _MySignInScreen extends State<MySignInScreen> {
       );
       if(!regExp.hasMatch(_email)){
         //toast
-        toast("Ingresa un email valido");
+        toast("Ingresa un email válido");
+        return false;
+      }
+      if(_password.length < 8){
+        toast("Contraseña minimo con 8 caracteres");
+        return false;
       }
       return true;
     } else {

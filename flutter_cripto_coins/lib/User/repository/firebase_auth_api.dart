@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cripto_coins/User/model/user.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 import 'cloud_firestore_api.dart';
@@ -63,6 +64,16 @@ class FirebaseAuthAPI {
     return user;
   }
 
+  void toast(String msg) {
+    Fluttertoast.showToast(
+      msg: msg,
+      textColor: Colors.white,
+      toastLength: Toast.LENGTH_SHORT,
+      backgroundColor: Colors.grey,
+      gravity: ToastGravity.BOTTOM,
+    );
+  }
+
   // Sign Up with email and password
   Future<User> signUp(String name, String lastName, String phoneOne,
       String country, String email, String password) async {
@@ -95,7 +106,7 @@ class FirebaseAuthAPI {
       return auth.user;
     } catch (e) {
       print(e.toString());
-      throw _error = '$e';
+      toast("Email ó correo incorrectos");
     }
   }
 
@@ -141,7 +152,7 @@ class PasswordValidator {
   static String validate(String value) {
     if (value.isEmpty) {
       return 'La contraseña no puede estar vacía';
-    } else if (value.length<8) {
+    } else if (value.length<5) {
       return 'Contraseña insegura';
     }
     return null;
