@@ -8,6 +8,9 @@ import 'package:flutter_cripto_coins/widgets/gradient_back.dart';
 import 'package:flutter_cripto_coins/widgets/mytext_form_field.dart';
 import 'package:flutter_cripto_coins/widgets/title_header.dart';
 
+import '../../../widgets/my_text_button.dart';
+import 'change_pass.dart';
+
 
 class MySignInScreen extends StatefulWidget {
 
@@ -65,44 +68,6 @@ class _MySignInScreen extends State<MySignInScreen> {
   }
 
 
-  /*Widget showAlert() {
-    if (e != null) {
-      return Container(
-        color: Colors.amberAccent,
-        width: double.infinity,
-        padding: EdgeInsets.all(8.0),
-        child: Row(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(right: 8.0),
-              child: Icon(Icons.error_outline),
-            ),
-            Expanded(
-              child: TitleHeader(
-                title: e,
-              )
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0),
-              child: IconButton(
-                icon: Icon(Icons.close),
-                onPressed: () {
-                  setState(() {
-                    e = null;
-                  });
-                },
-              ),
-            )
-          ],
-        ),
-      );
-    }
-    return SizedBox(
-      height: 0,
-    );
-  }*/
-
-
   @override
   Widget build(BuildContext context) {
 
@@ -152,20 +117,21 @@ class _MySignInScreen extends State<MySignInScreen> {
                         hintText: 'Contraseña',
                       ),
 
-                      Padding(
-                        padding: EdgeInsets.only(right: 20, top: 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text(
-                              "¿Olvido la contraseña?",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  decoration: TextDecoration.underline
-                              ),)
-                          ],
-                        ),
+                      MyTextButton(
+                        textNeutro: '¿Olvido la contraseña?',
+                        textBold: '',
+                        fontSize: 14.0,
+                        colorsTextNeutro: Colors.white,
+                        colorsTextBold: Colors.blue,
+                        onpressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ChangePass()),
+                          );
+                        },
                       ),
+
                       ButtonWhite(
                         text: "Login",
                         onPressed: () {
