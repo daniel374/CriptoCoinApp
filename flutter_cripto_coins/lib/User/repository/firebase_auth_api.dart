@@ -132,7 +132,7 @@ class FirebaseAuthAPI {
   Future<void>changePassword(String newPassword) async {
     try{
       var currentUser = FirebaseAuth.instance.currentUser;
-      await currentUser!.updatePassword(newPassword);
+      await currentUser.updatePassword(newPassword);
       FirebaseAuth.instance.signOut();
       customSnackBar(content: "¡La contraseña se cambio con exito!");
     } catch(er){

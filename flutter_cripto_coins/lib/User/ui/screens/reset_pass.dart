@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -6,6 +7,7 @@ import '../../../widgets/gradient_back.dart';
 import '../../../widgets/mytext_form_field.dart';
 import '../../../widgets/title_header.dart';
 import '../../repository/firebase_auth_api.dart';
+import 'mySign_in_screen.dart';
 
 class ResetPasword extends StatefulWidget {
 
@@ -24,15 +26,6 @@ class _ResetPassword extends State<ResetPasword> {
 
   final _formKey = GlobalKey<FormState>();
 
-  void toast(String msg) {
-    Fluttertoast.showToast(
-      msg: msg,
-      textColor: Colors.white,
-      toastLength: Toast.LENGTH_SHORT,
-      backgroundColor: Colors.grey,
-      gravity: ToastGravity.BOTTOM,
-    );
-  }
 
   bool validateForm() {
     final form = _formKey.currentState;
@@ -43,7 +36,7 @@ class _ResetPassword extends State<ResetPasword> {
       );
       if(!regExp.hasMatch(_email)){
         //toast
-        toast("Ingresa un email válido");
+        firebaseAuthAPI.toast("Ingresa un email válido");
         return false;
       }
       return true;
@@ -104,8 +97,21 @@ class _ResetPassword extends State<ResetPasword> {
     );
   }
 
-  _resetPasword(){
+  Future _resetPasword() async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: _email.trim());
 
+      FirebaseAuthAPI.customSnackBar(content: "¡Email enviado para resetear la contraseña!");
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => const MySignInScreen()),
+      );
+    } catch(er){
+      print(er.toString());
+      firebaseAuthAPI.toast(er.message);
+      Navigator.pop(context);
+    }
   }
 
 }
