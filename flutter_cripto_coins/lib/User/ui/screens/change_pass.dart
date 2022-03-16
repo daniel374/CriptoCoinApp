@@ -7,6 +7,8 @@ import '../../../widgets/mytext_form_field.dart';
 import '../../../widgets/title_header.dart';
 import 'package:flutter_cripto_coins/User/repository/firebase_auth_api.dart';
 
+import 'mySign_in_screen.dart';
+
 class ChangePass extends StatefulWidget {
 
   @override
@@ -16,6 +18,8 @@ class ChangePass extends StatefulWidget {
 }
 
 class _ChangePassState extends State<ChangePass> {
+
+  final FirebaseAuthAPI firebaseAuthAPI = FirebaseAuthAPI();
 
   final _newPasswordController = TextEditingController();
   final _newConfirmPasswordController = TextEditingController();
@@ -94,7 +98,7 @@ class _ChangePassState extends State<ChangePass> {
                         text: "Cambiar contraseña",
                         onPressed: () {
                           if (validateForm()) {
-                            //changePasword();
+                            _changePasword();
                           }
                         },
                         width: 250.0,
@@ -130,6 +134,13 @@ class _ChangePassState extends State<ChangePass> {
       return false;
     }
 
+  }
+
+  _changePasword(){
+    firebaseAuthAPI.changePassword(_newPass);
+    _newPasswordController.clear();
+    _newConfirmPasswordController.clear();
+    Navigator.pop(context);
   }
 
 }

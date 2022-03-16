@@ -128,6 +128,18 @@ class FirebaseAuthAPI {
     return await fbAuth.currentUser;
   }
 
+  //Change password
+  Future<void>changePassword(String newPassword) async {
+    try{
+      var currentUser = FirebaseAuth.instance.currentUser;
+      await currentUser!.updatePassword(newPassword);
+      FirebaseAuth.instance.signOut();
+      customSnackBar(content: "¡La contraseña se cambio con exito!");
+    } catch(er){
+
+    }
+  }
+
   static SnackBar customSnackBar({String content}) {
     return SnackBar(
       backgroundColor: Colors.black,

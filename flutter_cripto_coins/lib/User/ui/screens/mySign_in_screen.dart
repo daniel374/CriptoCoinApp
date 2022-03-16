@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_cripto_coins/User/ui/screens/reset_pass.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:flutter_cripto_coins/User/model/user.dart';
@@ -127,7 +128,7 @@ class _MySignInScreen extends State<MySignInScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ChangePass()),
+                                builder: (context) => ResetPasword()),
                           );
                         },
                       ),
