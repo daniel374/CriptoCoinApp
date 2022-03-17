@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cripto_coins/User/model/user.dart';
 
-class UserInfo extends StatelessWidget {
+class UserInfoCoin extends StatelessWidget {
 
   UserStore user;
 
-  UserInfo(@required this.user);
+  UserInfoCoin(@required this.user);
 
   @override
   Widget build(BuildContext context) {

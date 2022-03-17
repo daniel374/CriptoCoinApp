@@ -7,10 +7,10 @@ import 'package:flutter_cripto_coins/User/repository/cloud_firestore_repository.
 import 'package:flutter_cripto_coins/User/ui/widgets/profile_cryptocurrency.dart';
 import 'package:flutter_cripto_coins/money/model/cryptocurrency.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
-//import 'package:flutter_cripto_coins/User/model/user.dart';
+import 'package:flutter_cripto_coins/User/model/user.dart';
 
 class UserBloc implements Bloc {
-  final _auth_repository = AuthRepositoryAPI();
+  AuthRepositoryAPI _auth_repository = AuthRepositoryAPI();
 
   //Flujo de datos - Streams
   //Stream - Firebase

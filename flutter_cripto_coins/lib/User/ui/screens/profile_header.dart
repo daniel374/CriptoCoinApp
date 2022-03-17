@@ -1,7 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cripto_coins/User/bloc/bloc_user.dart';
 import 'package:flutter_cripto_coins/User/model/user.dart';
-import 'package:flutter_cripto_coins/User/ui/widgets/user_info.dart';
+import 'package:flutter_cripto_coins/User/ui/widgets/user_info_coin.dart';
 import 'package:flutter_cripto_coins/widgets/title_header.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 
@@ -30,9 +31,9 @@ class ProfileHeader extends StatelessWidget {
 
   }
 
-  showStreamData(){
+  showStreamData() {
     return StreamBuilder(
-        stream: userBloc.streamFirebase,
+        stream: FirebaseAuth.instance.authStateChanges(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if((snapshot.connectionState == ConnectionState.waiting) || snapshot.connectionState == ConnectionState.none){
             return waitProfileDate();
@@ -65,7 +66,7 @@ class ProfileHeader extends StatelessWidget {
                 title,
               ],
             ),
-            UserInfo(user),
+            UserInfoCoin(user),
           ],
         ),
       );
@@ -91,7 +92,7 @@ class ProfileHeader extends StatelessWidget {
                 title: "    Cripto Coins App",
                 fontSize: 20.0,
                 colorTitle: Colors.white,
-              )
+              ),
             ],
           )
 
