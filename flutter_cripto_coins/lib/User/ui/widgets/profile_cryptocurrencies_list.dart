@@ -1,8 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cripto_coins/User/bloc/bloc_user.dart';
 import 'package:flutter_cripto_coins/money/model/cryptocurrency.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
+
+import '../../../widgets/title_header.dart';
+import '../../repository/cloud_firestore_api.dart';
 
 
 class ProfileCryptocurrenciesList extends StatefulWidget {
@@ -43,12 +48,60 @@ class _ProfileCryptocurrenciesListState extends State<ProfileCryptocurrenciesLis
               child: Container(
                 width: 260,
                 child: Card(
-                    child: Wrap(
+                    child: Stack(
                       children: <Widget>[
-                        SizedBox(height: 10.0,),
-                        Text(doc.data().toString()),
-                        ListTile(
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: Stack(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 10, top: 5),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: 15.0),
+                                          child: Align(
+                                            alignment: Alignment.bottomLeft,
+                                            child: TitleHeader(
+                                              title: doc.get("name").toString(),
+                                              fontSize: 14.0,
+                                              colorTitle: Colors.black,
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: 15.0),
+                                          child: Align(
+                                            alignment: Alignment.bottomLeft,
+                                            child: Text("Precio: "+doc.get("price").toString())
+                                            ),
+                                          ),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: 15.0),
+                                          child: Align(
+                                              alignment: Alignment.bottomLeft,
+                                              child: Text("estado: "+doc.get("status").toString())
+                                          ),
+                                        )
+                                      ],
+                                    ),
 
+                                  ],
+                                ),
+                              ),
+
+                            ],
+                          ),
                         )
                       ],
                     )
@@ -61,15 +114,12 @@ class _ProfileCryptocurrenciesListState extends State<ProfileCryptocurrenciesLis
 
     }
 
-    return Container(
-      margin: EdgeInsets.only(
-        top: 10.0,
-        left: 20.0,
-        right: 20.0,
-        bottom: 10.0
-      ),
+    return Center(
+      child: Container(
+      margin: EdgeInsets.all(20.0),
       child: StreamBuilder<QuerySnapshot >(
-        stream: userBloc.cryptoStream,
+        stream: FirebaseFirestore.instance.collection("cryptocurrencies").snapshots(),
+        //future: CloudFirestoreAPI().getCryptoCurrency(),
         builder: (context, AsyncSnapshot<QuerySnapshot > snapshot){
           if(snapshot.hasData){
             switch(snapshot.connectionState){
@@ -77,9 +127,13 @@ class _ProfileCryptocurrenciesListState extends State<ProfileCryptocurrenciesLis
               case ConnectionState.none:
                 return CircularProgressIndicator();
               default:
-                if(["", null, false, 0].contains(snapshot.data.docs)){
-                  print("SNAPSHOT  "+snapshot.data.docs[0].toString());
-                  return Column(children: snapshot.data.docs.map((doc) => buildItem(doc, userBloc)).toList());
+                print(snapshot);
+                if(snapshot.hasData){
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: snapshot.data.docs.map((doc) => buildItem(doc, userBloc)).toList()
+                  );
                 }else{
                   return CircularProgressIndicator();
                 }
@@ -89,7 +143,8 @@ class _ProfileCryptocurrenciesListState extends State<ProfileCryptocurrenciesLis
             return CircularProgressIndicator();
           }
         },
-      )
+      ),
+    ),
     );
 
   }

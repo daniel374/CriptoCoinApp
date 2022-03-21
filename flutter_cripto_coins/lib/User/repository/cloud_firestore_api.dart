@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_cripto_coins/User/model/user.dart';
 import 'package:flutter_cripto_coins/User/ui/widgets/profile_cryptocurrency.dart';
 import 'package:flutter_cripto_coins/money/model/cryptocurrency.dart';
@@ -11,6 +13,7 @@ class CloudFirestoreAPI {
   final String CRYPTOCURRENCIES = "cryptocurrencies";
 
   final FirebaseFirestore _db = FirebaseFirestore.instance;
+  final dref =  FirebaseDatabase.instance.ref();
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   Future<void> updateUserData(UserStore user) async {
@@ -79,6 +82,22 @@ class CloudFirestoreAPI {
     });
 
     return profileCryptocurrency;
+  }
+
+
+  Future<List> getCryptoCurrency() async {
+    List misCryptocurencies = [];
+    try{
+      DatabaseEvent snap = await dref.child("cryptocurrencies").once();
+
+      if (snap.snapshot.exists){
+        print(snap.snapshot.value);
+      }
+      return misCryptocurencies;
+
+    }catch (err) {
+      return misCryptocurencies;
+    }
   }
 
 

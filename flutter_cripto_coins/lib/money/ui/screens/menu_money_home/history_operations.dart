@@ -9,10 +9,10 @@ class OperationItem {
 }
 //Definimos los valores de la lista
 final List<OperationItem> _operationList = <OperationItem>[
-  OperationItem("Equilibrar:", 268.17),
-  OperationItem("Beneficio:", 0.00),
-  OperationItem("Depósito:", 268.17),
-  OperationItem("Retirada de dinero", 0.00),
+  OperationItem("Equilibrar:", 0),
+  OperationItem("Beneficio:", 0),
+  OperationItem("Depósito:", 0),
+  OperationItem("Retirada de dinero", 0),
 ];
 
 class HistoryOperations extends StatefulWidget {
