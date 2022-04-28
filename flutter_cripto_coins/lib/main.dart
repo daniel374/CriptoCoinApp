@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
     return BlocProvider(
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Cripto Coins',
+          title: 'Show Money Trading',
           home: InAppScreen(),
           //home: RegisterScreen(),
           //home: MenuOperations(),

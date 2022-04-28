@@ -56,7 +56,7 @@ class _ChangePassState extends State<ChangePass> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      TitleHeader(title: "Cripto Coins App", fontSize: 35.0,),
+                      TitleHeader(title: "Show Money Trading", fontSize: 35.0,),
 
                       MyTextFormField(
                         obscureText: _isObscure,

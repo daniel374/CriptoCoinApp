@@ -34,7 +34,7 @@ class UserStore extends Equatable{
     this.cryptoStocks
   });
 
-  static var empty = UserStore(email: '', uid: '');
+  //static var empty = UserStore(email: '', uid: '');
 
   @override
   List<Object> get props => [email, uid, name, country, phoneOne, phoneTwo, cryptoStocks];

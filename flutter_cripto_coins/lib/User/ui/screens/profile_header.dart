@@ -6,15 +6,23 @@ import 'package:flutter_cripto_coins/User/ui/widgets/user_info_coin.dart';
 import 'package:flutter_cripto_coins/widgets/title_header.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 
-class ProfileHeader extends StatelessWidget {
+class ProfileHeader extends StatefulWidget {
 
-  UserBloc userBloc;
-  UserStore user;
   final String titleHeader;
   final double sizeHeader;
-  Object title;
 
   ProfileHeader({Key key, @required this.titleHeader, @required this.sizeHeader});
+
+  @override
+  State<ProfileHeader> createState() => _ProfileHeaderState();
+}
+
+class _ProfileHeaderState extends State<ProfileHeader> {
+  UserBloc userBloc;
+
+  UserStore user;
+
+  Object title;
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +30,8 @@ class ProfileHeader extends StatelessWidget {
     userBloc = BlocProvider.of<UserBloc>(context);
 
     title = TitleHeader(
-      title: titleHeader,
-      fontSize: sizeHeader,
+      title: widget.titleHeader,
+      fontSize: widget.sizeHeader,
       colorTitle: Colors.white,
     );
 
@@ -49,9 +57,9 @@ class ProfileHeader extends StatelessWidget {
       //print("No logueado");
       return waitProfileDate();
     } else {
-      /*print("Logueado");
-      print(snapshot.data);*/
-      user = UserStore(name: snapshot.data.displayName, lastname: '', email: snapshot.data.email, photoURL: snapshot.data.photoURL, uid: '');
+
+      user = UserStore(name: snapshot.data.displayName, lastname: '', email: snapshot.data.email, photoURL: snapshot.data.photoURL, uid: snapshot.data.uid);
+
 
       return Container(
         margin: EdgeInsets.only(
@@ -89,7 +97,7 @@ class ProfileHeader extends StatelessWidget {
               Padding(padding: EdgeInsets.only(top: 50.0)),
               CircularProgressIndicator(),
               TitleHeader(
-                title: "    Cripto Coins App",
+                title: "Show Money Trading",
                 fontSize: 20.0,
                 colorTitle: Colors.white,
               ),

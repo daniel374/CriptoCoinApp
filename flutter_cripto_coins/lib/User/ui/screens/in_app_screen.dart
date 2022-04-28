@@ -79,7 +79,7 @@ class _InAppScreen extends State<InAppScreen> {
                     width: 220.0,
                     height: 40.0,
                   ),
-                  GoogleLoginButton(),
+                  //GoogleLoginButton(),
                   MyTextButton(
                     textNeutro: '¿No tienes una cuenta? ',
                     textBold: 'Registrate',

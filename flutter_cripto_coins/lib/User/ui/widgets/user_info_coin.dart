@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cripto_coins/User/model/user.dart';
 
-class UserInfoCoin extends StatelessWidget {
+class UserInfoCoin extends StatefulWidget {
 
-  UserStore user;
+  UserStore userInfo;
 
-  UserInfoCoin(@required this.user);
+  UserInfoCoin(@required this.userInfo);
+
+  @override
+  State<UserInfoCoin> createState() => _UserInfoCoinState();
+}
+
+class _UserInfoCoinState extends State<UserInfoCoin> {
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +33,8 @@ class UserInfoCoin extends StatelessWidget {
           image: DecorationImage(
               fit: BoxFit.cover,
               //image: AssetImage(user.photoURL)
-              image: (user.photoURL != null)
-                  ? NetworkImage(user.photoURL)
+              image: (widget.userInfo.photoURL != null)
+                  ? NetworkImage(widget.userInfo.photoURL)
                   : NetworkImage(
                   'https://clubdeescritura.com/wp-content/uploads/users-54/user-53932/2017/05/photo-300x300.png'),
           )
@@ -48,7 +54,7 @@ class UserInfoCoin extends StatelessWidget {
               Container(
                 margin: EdgeInsets.only(top: 40.0, bottom: 5.0),
                 child: Text(
-                  (user.name != null) ? user.name : '',
+                  (widget.userInfo.name != null) ? widget.userInfo.name : '',
                   style: TextStyle(
                     fontSize: 18.0,
                     fontWeight: FontWeight.bold,
@@ -58,7 +64,7 @@ class UserInfoCoin extends StatelessWidget {
                 ),
               ),
               Text(
-                (user.email != null) ? user.email : '',
+                (widget.userInfo.email != null) ? widget.userInfo.email : '',
                 style: TextStyle(
                   fontSize: 15.0,
                   color: Colors.white30,
